@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const logger = require('mongo-morgan-ext');
 const compression = require('compression');
 const helmet = require('helmet');
+require('dotenv').load();
 require('./src/requireAllModels'); // Importing database connection when server starts
 const errorMsg = require('./src/helpers/errorMessages').errorMessages;
 const config = require('./src/config/config');
@@ -21,13 +22,7 @@ app.use(helmet());
 app.set('title', 'Test');
 app.set('query parser', `extended`);
 
-const verifyReleaseUrl = require('./src/controllers/verifyReleaseUrl').verifyReleaseUrl;
-
-// Verify URL before release
-app.use(verifyReleaseUrl);
-
 require('./src/config/dbConfig'); // Importing database connection when server starts
-let verifyToken = require('./src/helpers/token').verifyToken;
 
 const clientUrl = process.env.CLIENT_URL || config.client;
 
@@ -43,7 +38,8 @@ app.use(function (req, res, next) {
 });
 
 // Verifying JWT Token
-app.use(verifyToken);
+//let verifyToken = require('./src/helpers/token').verifyToken;
+//app.use(verifyToken);
 
 // serve static files
 app.use(express.static('public'));
