@@ -53,7 +53,7 @@ let nodemailer = require("nodemailer");
 let transporter = nodemailer.createTransport({
   "service": "gmail",
   "auth": {
-    "user": "gupta137abhishek0@gmail.com",
+    "user": "abhishekg@prdxn.com",
     "pass": process.env.PASSWORD
   }
 });
@@ -72,9 +72,9 @@ passwordless.addDelivery(function (tokenToSend, uidToSend, recipient, callback) 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       throw error;
-    } else {
-      console.log("Email successfully sent!");
     }
+    console.log("Email successfully sent!");
+    callback(error);
   });
 });
 
@@ -102,7 +102,7 @@ app.set('view engine', 'ejs');
 // Passwordless middleware
 app.use(passwordless.sessionSupport());
 app.use(passwordless.acceptToken({
-  "successRedirect": '/'
+  "successRedirect": '/restricted'
 }));
 
 //Using the compression middleware
