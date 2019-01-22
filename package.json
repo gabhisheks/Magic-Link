@@ -1,0 +1,48 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "6.2.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "npm i && gulp",
+    "qa": "npm i && gulp qa",
+    "env": "npm i && gulp env",
+    "inspect": "node --inspect app.js",
+    "lint": "eslint ."
+  },
+  "author": "PRDXN",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "co": "^4.6.0",
+    "compression": "^1.6.2",
+    "cron": "^1.2.1",
+    "eslint": "^3.18.0",
+    "express": "^4.14.1",
+    "gulp": "^3.9.1",
+    "gulp-watch": "^4.3.11",
+    "helmet": "^3.5.0",
+    "jsonwebtoken": "^7.3.0",
+    "loadtest": "^3.0.3",
+    "mongo-morgan-ext": "github:reedyuk/mongo-morgan-ext",
+    "mongodb": "^2.2.24",
+    "mongoose": "^4.11.13",
+    "mongoose-encryption": "^1.5.0",
+    "morgan": "^1.8.1",
+    "node-gyp": "^3.6.0",
+    "nodemailer": "^4.4.1",
+    "passwordless": "^1.1.3",
+    "pm2": "^2.4.2",
+    "postcode": "^0.2.5",
+    "postcodesio-client": "^0.3.1",
+    "querystring": "^0.2.0",
+    "response-time": "^2.3.2",
+    "run-sequence": "^1.2.2",
+    "shortid": "^2.2.8",
+    "superagent": "^3.8.0"
+  }
+}
