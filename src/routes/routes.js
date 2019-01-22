@@ -7,8 +7,8 @@ const cronRoutes = require('./cronRoute');
 const tempRoutes = require('./tempRoute');
 
 router.use('/cms', cmsRoutes);
-router.use('/app', appRoutes);
+router.use('/', appRoutes);
 router.use('/cron', cronRoutes);
-router.use('/', tempRoutes);
+//router.use('/', tempRoutes);
 
 module.exports = router;
