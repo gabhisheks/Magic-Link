@@ -60,14 +60,20 @@ let transporter = nodemailer.createTransport({
 
 const pathToMongoDb = config.db.url + config.db.name;
 const host = process.env.HOST || 'http://localhost:8081/';
-passwordless.init(new MongoStore(pathToMongoDb));
+passwordless.init(new MongoStore(pathToMongoDb, {
+  'mongostore': {
+    'collection': 'userToken'
+  }
+}), {
+  'allowTokenReuse': true
+});
 passwordless.addDelivery(function (tokenToSend, uidToSend, recipient, callback) {
   let mailOptions = {
     "from": "gupta137abhishek0@gmail.com",
     "to": recipient,
     "subject": `Magic Link Testing :)`,
     "text": 'Hello!\nYou can now access your account here: ' +
-      host + '?token=' + tokenToSend + '&uid=' + encodeURIComponent(uidToSend)
+      host + '?token=' + tokenToSend + '&uid=' + encodeURIComponent(uidToSend) + '&p=' + '12345678'
   };
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
