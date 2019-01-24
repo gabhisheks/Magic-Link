@@ -1,4 +1,4 @@
 
 exports.default = {
-  /* 'eventAutoUpdate': require('./../controllers/schedulars/eventAutoUpdate') */
+  'userController': require('./../controllers/userController')
 };

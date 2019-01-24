@@ -11,15 +11,15 @@ const errorMsg = require('./src/helpers/errorMessages').errorMessages;
 const config = require('./src/config/config');
 var routes = require('./src/routes/routes');
 var responseTime = require('response-time');
+const graphqlHTTP = require('express-graphql');
+const schema = require('./graphql').default;
 var app = express();
-app.set('port', process.env.PORT || 8081);
 
 var path = require('path');
-const cookieParser = require('cookie-parser');
-const expressSession = require('express-session');
 const passwordless = require('passwordless');
 const MongoStore = require('passwordless-mongostore');
 
+app.set('port', process.env.PORT || 8081);
 app.use(responseTime());
 //Security Middleware
 app.use(helmet());
@@ -48,8 +48,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan(':method :url :date :remote-addr :status :response-time'));
 app.use(logger(config.db.url + config.db.name, "logs"));
 
-let nodemailer = require("nodemailer");
 // create mail transporter
+let nodemailer = require("nodemailer");
 let transporter = nodemailer.createTransport({
   "service": "gmail",
   "auth": {
@@ -91,22 +91,12 @@ app.use(bodyParser.urlencoded({
   'extended': true
 }));
 
-app.use(cookieParser());
-app.use(expressSession({
-  "secret": 'prdxn',
-  "saveUninitialized": false,
-  "resave": false,
-  "cookie": {
-    "maxAge": 60 * 60 * 24 * 365 * 10
-  }
-}));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
 // Passwordless middleware
-app.use(passwordless.sessionSupport());
 app.use(passwordless.acceptToken({
   "successRedirect": '/restricted'
 }));
@@ -119,6 +109,13 @@ app.set('etag', 'strong');
 
 //Handles routes in the app
 app.use('/', routes);
+
+// GraphQL API
+app.use('/graphql', graphqlHTTP(() => ({
+  'schema': schema,
+  'graphiql': true,
+  'pretty': true
+})));
 
 // When route is not found error messege is thrown
 /* app.use('/', function (req, res) {
