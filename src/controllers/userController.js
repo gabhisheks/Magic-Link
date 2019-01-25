@@ -27,3 +27,9 @@ exports.userByName = (name) => {
     'name': name
   }).exec();
 };
+
+exports.userById = (id) => {
+  return mongoose.model('user').find({
+    '_id':id
+  }).exec();
+};

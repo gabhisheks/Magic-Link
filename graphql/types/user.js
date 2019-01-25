@@ -3,9 +3,7 @@ const {
   GraphQLInputObjectType,
   GraphQLNonNull,
   GraphQLString,
-  GraphQLInt,
   GraphQLID,
-  GraphQLList
 } = require('graphql');
 
 exports.userAllDetail = new GraphQLObjectType({
@@ -26,7 +24,6 @@ exports.userAllDetail = new GraphQLObjectType({
   })
 });
 
-
 exports.userDetailAEN = new GraphQLInputObjectType({
   'name': 'Userdetail_email_name_address',
   'fields': () => ({
@@ -37,15 +34,6 @@ exports.userDetailAEN = new GraphQLInputObjectType({
       'type': GraphQLString
     },
     'address': {
-      'type': GraphQLString
-    }
-  })
-});
-
-exports.userDetailN = new GraphQLInputObjectType({
-  'name': 'Userdetail_name',
-  'fields': () => ({
-    'name': {
       'type': GraphQLString
     }
   })
