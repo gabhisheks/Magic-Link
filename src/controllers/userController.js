@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 exports.addUser = (data) => {
   let {
     name,
@@ -10,11 +9,14 @@ exports.addUser = (data) => {
   return mongoose.model('user').findOneAndUpdate({
     'name': name
   }, {
-    name,
-    email,
-    address
+    '$set': {
+      name,
+      email,
+      address
+    }
   }, {
-    'upsert': true
+    'upsert': true,
+    'new': true,
   }).exec();
 };
 
@@ -30,6 +32,6 @@ exports.userByName = (name) => {
 
 exports.userById = (id) => {
   return mongoose.model('user').find({
-    '_id':id
+    '_id': id
   }).exec();
 };
